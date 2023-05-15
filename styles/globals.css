@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+body {
+  @apply
+  p-0
+  m-0
+  text-lg
+  font-roboto
+}
+
+nav a {
+  @apply
+  text-gray-400
+  
+}
