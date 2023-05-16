@@ -9,10 +9,52 @@ body {
   m-0
   text-lg
   font-roboto
+  bg-gray-300
+}
+
+h1 {
+  @apply
+  m-0
+  text-5xl
+  font-normal
+  py-5
 }
 
 nav a {
   @apply
   text-gray-400
   
+}
+
+.btn {
+  @apply
+  text-base
+  border-[1px]
+  py-1
+  mr-2
+  rounded-lg
+  text-white
+}
+
+.btn-cart {
+  @apply
+  my-2
+  px-3
+  bg-[#5542F6]
+  border-[#5542F6]
+}
+
+.btn-read {
+  @apply
+  bg-transparent
+  px-6
+}
+
+.btn-item {
+  @apply
+  my-0
+  px-3
+  mr-0
+  bg-[#5542F6]
+  border-[#5542F6]
 }
