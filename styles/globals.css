@@ -1,14 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 body {
   @apply
   p-0
   m-0
   text-lg
-  font-roboto
+  font-poppins
   bg-gray-300
 }
 
@@ -34,14 +33,16 @@ nav a {
   mr-2
   rounded-lg
   text-white
+
 }
 
 .btn-cart {
   @apply
   my-2
   px-3
-  bg-[#5542F6]
-  border-[#5542F6]
+  text-black
+  bg-white
+  border-white
 }
 
 .btn-read {
@@ -55,6 +56,7 @@ nav a {
   my-0
   px-3
   mr-0
-  bg-[#5542F6]
-  border-[#5542F6]
+  bg-transparent
+  text-[#263429]
+  border-[#263429]
 }

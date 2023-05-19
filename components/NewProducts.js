@@ -1,23 +1,13 @@
-import ButtonAddToCart from "./ButtonAddToCart";
+import ProductBox from "./ProductBox";
 
 export default function NewProducts ({products}) {
 
     return (
-        <div className="max-w-[800px] mx-auto">
-            <div className="grid grid-cols-4 gap-9">
+        <div className="max-w-[1200px] mx-auto">
+            <h2 className="text-4xl  my-6">New arrivals</h2>
+            <div className="grid grid-cols-5 gap-9">
                 {products?.length && products.map(product => (
-                    <div>
-                        <div className="bg-white p-5 flex justify-center items-center rounded-lg mt-3">
-                            <img src={product.images[0]} className="max-w-full h-[150px]"></img>
-                        </div>
-                        <div className="mt-2">
-                            <h2 className="text-base m-0 ">{product.title}</h2>
-                            <div className="flex items-center justify-between">
-                            <p className="font-bold text-xl ">${product.price}</p>
-                            <ButtonAddToCart btnType="btn-item"/>
-                            </div>
-                        </div>
-                    </div>
+                    <ProductBox product={product} key={product._id}/>
                 ))}
             </div>
         </div>
