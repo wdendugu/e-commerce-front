@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+
+/* General Items */
+
 body {
   @apply
   p-0
@@ -19,11 +22,59 @@ h1 {
   py-5
 }
 
+h2 {
+  @apply
+  text-4xl  
+  my-6
+}
+
 nav a {
   @apply
   text-gray-400
   
 }
+
+/* Layout Classes */
+
+.centered-box {
+  @apply
+  max-w-[1200px] 
+  mx-auto
+}
+
+.flex-col-center {
+  @apply
+  flex 
+  flex-col 
+  justify-center
+}
+
+.product-grid {
+  @apply
+
+  gap-10 
+  mt-9
+}
+
+.grid-12-8 {
+  @apply
+  grid 
+  grid-cols-[1.2fr,.8fr] 
+}
+
+.cart-img-box {
+  @apply
+  w-[100px] 
+  h-[100px] 
+  p-2 border 
+  border-gray-200 
+  rounded-xl 
+  flex 
+  justify-center 
+  items-center
+}
+
+/* Button Classes*/
 
 .btn {
   @apply
@@ -60,3 +111,16 @@ nav a {
   text-[#263429]
   border-[#263429]
 }
+
+/* Table Items */
+
+th {
+  @apply
+  text-left
+  text-[#ccc]
+  uppercase
+  font-semibold
+  text-sm
+}
+
+
