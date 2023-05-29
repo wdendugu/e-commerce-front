@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 
-/* General Items */
+/* General Elements */
 
 body {
   @apply
@@ -51,7 +51,6 @@ nav a {
 
 .product-grid {
   @apply
-
   gap-10 
   mt-9
 }
@@ -62,11 +61,18 @@ nav a {
   grid-cols-[1.2fr,.8fr] 
 }
 
+.grid-8-12 {
+  @apply
+  grid 
+  grid-cols-[.8fr,1.2fr] 
+}
+
 .cart-img-box {
   @apply
   w-[100px] 
   h-[100px] 
-  p-2 border 
+  p-2 
+  border 
   border-gray-200 
   rounded-xl 
   flex 
@@ -84,7 +90,6 @@ nav a {
   mr-2
   rounded-lg
   text-white
-
 }
 
 .btn-cart {
@@ -112,7 +117,18 @@ nav a {
   border-[#263429]
 }
 
-/* Table Items */
+.btn-payment {
+  @apply
+  block 
+  w-full 
+  bg-black 
+  rounded-lg 
+  text-white 
+  py-2
+  mt-5
+}
+
+/* Table */
 
 th {
   @apply
@@ -123,4 +139,14 @@ th {
   text-sm
 }
 
+/* Input */
 
+.input-order {
+  @apply
+  w-full
+  p-1
+  mb-2
+  border 
+  border-gray-300
+  rounded-md
+}

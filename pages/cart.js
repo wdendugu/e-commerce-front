@@ -8,6 +8,12 @@ export default function CartPage () {
 
     const {cartProducts} = useContext(CartContext)
     const [products, setProducts] = useState([])
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [streetAdress, setstreetAdress] = useState("")
+    const [city, setCity] = useState("")
+    const [postalCode, setPostalCode] = useState("")
+    const [country, setCountry] = useState("")
 
     useEffect (() =>{
         if (cartProducts.length > 0) {
@@ -23,12 +29,21 @@ export default function CartPage () {
         total += price
     }
 
+    async function goToPayment () {
+        const response = await axios.post('/api/checkout', {
+            name,email,streetAdress,city,postalCode,country,cartProducts
+        })
+        if (response.data.url) {
+            window.location = response.data.url
+        }
+    }
+
     return (
         <>
         <Header/>
         <div className="product-grid grid-12-8 centered-box">
             <div className="bg-white rounded-xl p-7">
-                <h2>Products</h2>
+                <h2 className="font-bold">Cart</h2>
                 {!cartProducts?.length && (<div>Your cart is empty</div>)}
                 {products?.length > 0 && (
                     <table className="w-full">
@@ -40,7 +55,7 @@ export default function CartPage () {
                             </tr>
                         </thead>
                         <tbody>
-                            {products?.length > 0 && products.map (product => <ProductItemCart product={product} />)}
+                            {cartProducts?.length > 0 && products.map (product => <ProductItemCart product={product} />)}
                             <tr className="border-t-2">
                                 <td>Total</td>
                                 <td></td>
@@ -52,10 +67,63 @@ export default function CartPage () {
             </div>
             {!!cartProducts?.length && (
                 <div className="bg-white rounded-xl p-7">
-                    <h2>Order Information</h2>
-                    <input type="text" placeholder="Address"></input>
-                    <input type="text" placeholder="Address 2"></input>
-                    <button className="block w-full bg-black rounded-lg text-white ">Continue to payment</button>
+                    <h2 className="font-bold">Order Information</h2>
+                    <input 
+                        type="text"
+                        placeholder="Name"
+                        className="input-order"
+                        value={name}
+                        onChange={(ev) => setName(ev.target.value)}
+                        name="name"
+                    ></input>
+                    <input 
+                        type="text" 
+                        placeholder="Email" 
+                        className="input-order" 
+                        value={email} 
+                        onChange={(ev) => setEmail(ev.target.value)}
+                        name="email"
+                    ></input>
+                    <input 
+                        type="text"
+                        placeholder="Street Address" 
+                        className="input-order" 
+                        value={streetAdress} 
+                        onChange={(ev) => setstreetAdress(ev.target.value)}
+                        name="streetAdress"
+                    ></input>
+                    <div className="grid-12-8 gap-2">
+                        <input 
+                            type="text" 
+                            placeholder="City" 
+                            className="input-order" 
+                            value={city} 
+                            onChange={(ev) => setCity(ev.target.value)}
+                            name="city"
+                        ></input>
+                        <input 
+                            type="text" 
+                            placeholder="Postal Code" 
+                            className="input-order" 
+                            value={postalCode} 
+                            onChange={(ev) => setPostalCode(ev.target.value)}
+                            name="postalCode"
+                        ></input>
+                    </div>
+                    <input 
+                        type="text" 
+                        placeholder="Country" 
+                        className="input-order" 
+                        value={country} 
+                        onChange={(ev) => setCountry(ev.target.value)}
+                        name="country"
+                    ></input>
+                    <input 
+                        type="hidden" 
+                        value={cartProducts.join(',')}
+                        name="products"
+                    ></input>
+                    <button className="btn-payment" onClick={goToPayment}>Continue to payment</button>
                 </div>
             )}
         </div>

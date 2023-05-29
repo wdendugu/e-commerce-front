@@ -13,7 +13,7 @@ export default function ProductBox ({product}) {
     return (
         <div>
             <Link href={url} className="bg-white p-5 flex justify-center items-center rounded-lg mt-3">
-                <img src={product.images[0]} className="max-w-full h-[150px]"></img>
+                <img src={product.images?.[0]} className="max-w-full h-[150px]"></img>
             </Link>
             <div className="mt-2">
                 <Link href={url}  className="text-base m-0">{product.title}</Link>
