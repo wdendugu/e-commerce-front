@@ -40,6 +40,7 @@ nav a {
   @apply
   max-w-[1200px] 
   mx-auto
+  px-5
 }
 
 .flex-col-center {
@@ -126,6 +127,14 @@ nav a {
   text-white 
   py-2
   mt-5
+}
+
+.btn-productpage {
+  @apply
+  bg-gray-900
+  px-3
+  py-2
+  self-center
 }
 
 /* Table */

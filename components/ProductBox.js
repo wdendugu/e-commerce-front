@@ -8,8 +8,8 @@ export default function ProductBox ({product}) {
     const {addProduct} = useContext(CartContext)
     function addNewtoCart () {
       addProduct(product._id)
-
     }
+
     return (
         <div>
             <Link href={url} className="bg-white p-5 flex justify-center items-center rounded-lg mt-3">
@@ -19,7 +19,7 @@ export default function ProductBox ({product}) {
                 <Link href={url}  className="text-base m-0">{product.title}</Link>
                 <div className="flex items-center justify-between">
                     <p className="font-bold text-[1.3rem] ">${product.price}</p>
-                    <ButtonAddToCart btnType="btn-item" onClick={addNewtoCart}/>
+                    <ButtonAddToCart btnType="btn-item" onClick={addNewtoCart} />
                 </div>
             </div>
         </div>
