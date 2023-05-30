@@ -81,6 +81,23 @@ nav a {
   items-center
 }
 
+.product-grid {
+  @apply
+  grid
+  sm:grid-cols-2
+  md:grid-cols-4
+  xl:grid-cols-5
+  gap-9
+}
+
+.category-grid {
+  @apply
+  grid 
+  sm:grid-cols-2
+  md:grid-cols-4
+  gap-5
+}
+
 /* Button Classes*/
 
 .btn {

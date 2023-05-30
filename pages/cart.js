@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react"
 import { CartContext } from "@/components/CartContext"
-import Header from "@/components/Header"
 import axios from "axios"
 import ProductItemCart from "@/components/ProductItemCart"
+import Layout from "@/components/Layout"
 
 export default function CartPage () {
 
@@ -39,9 +39,7 @@ export default function CartPage () {
     }
 
     return (
-        <>
-        <Header/>
-        <div className="product-grid grid-12-8 centered-box">
+        <Layout addclass={"product-grid grid-12-8 "}>
             <div className="bg-white rounded-xl p-7">
                 <h2 className="font-bold">Cart</h2>
                 {!cartProducts?.length && (<div>Your cart is empty</div>)}
@@ -126,7 +124,6 @@ export default function CartPage () {
                     <button className="btn-payment" onClick={goToPayment}>Continue to payment</button>
                 </div>
             )}
-        </div>
-        </>
+    </Layout>
     )
 }

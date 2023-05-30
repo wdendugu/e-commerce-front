@@ -1,4 +1,4 @@
-import Header from "@/components/Header";
+import Layout from "@/components/Layout";
 import { Product } from "@/models/Product";
 import { mongooseConnect } from "@/lib/mongoose";
 import ImageBar from "@/components/ImageBar";
@@ -16,25 +16,21 @@ export default function ProductPage ({product}) {
     }
 
     return  (
-        <>
-            <Header />
-            <div className="centered-box mt-6">
-                <div className="grid-12-8 product-grid">
-                    <div className="flex items-center justify-center bg-white rounded-lg">
-                        <ImageBar images={product.images}/>
-                        
-                    </div>
-                    <div>
-                        <h1>{product.title}</h1>
-                        <p>{product.description}</p>
-                        <div className="flex justify-between">
-                            <h2>${product.price}</h2>
-                            <CartButton btnType="btn-productpage" onClick={addNewtoCart} btnText={" Add to Cart"}/>
-                        </div>
+        <Layout>
+            <div className="grid-12-8 product-grid">
+                <div className="flex items-center justify-center bg-white rounded-lg">
+                    <ImageBar images={product.images}/>    
+                </div>
+                <div>
+                    <h1>{product.title}</h1>
+                    <p>{product.description}</p>
+                    <div className="flex justify-between">
+                        <h2>${product.price}</h2>
+                        <CartButton btnType="btn-productpage" onClick={addNewtoCart} btnText={" Add to Cart"}/>
                     </div>
                 </div>
             </div>
-        </>
+        </Layout>
     )
 }
 

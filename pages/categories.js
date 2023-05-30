@@ -1,16 +1,14 @@
-import Header from "@/components/Header";
 import { mongooseConnect } from "@/lib/mongoose";
 import { Category } from "@/models/Category";
 import { Product } from "@/models/Product";
 import ProductBox from "@/components/ProductBox";
 import Link from "next/link";
+import Layout from "@/components/Layout";
 
 export default function CategoriesPage ({mainCategories,categoriesProducts,allCategories}) {
 
     return (
-        <>
-        <Header />
-        <div className="centered-box">
+        <Layout>
             <h2 className="font-bold">All Categories</h2>
             {mainCategories.map(cat => (
                 <div key={cat._id}>
@@ -18,7 +16,7 @@ export default function CategoriesPage ({mainCategories,categoriesProducts,allCa
                         <h2>{cat.name}</h2>
                         <Link href={"/category/"+cat._id}>Show all</Link>
                     </div>
-                    <div className="grid grid-cols-4 gap-5">
+                    <div className="category-grid">
                         {categoriesProducts[cat._id]?.map(p => (
                             <ProductBox product={p} key={p._id}/>
                         ))}
@@ -26,8 +24,7 @@ export default function CategoriesPage ({mainCategories,categoriesProducts,allCa
                     </div>
                 </div>
             ))}
-        </div>
-        </>
+        </Layout>
     )
 }
 

@@ -1,21 +1,18 @@
-import Header from "@/components/Header";
+import Layout from "@/components/Layout";
 import { mongooseConnect } from "@/lib/mongoose";
 import { Product } from "@/models/Product";
 import ProductBox from "@/components/ProductBox";
 
 export default function AllProductsPage ({products}) {
     return (
-        <>
-            <Header/>
-            <div className="centered-box">
-                <h2 className="font-bold">All Products</h2>
-                <div className="grid grid-cols-5 gap-9">
-                {products?.length && products.map(product => (
-                    <ProductBox product={product} key={product._id}/>
-                ))}
+        <Layout >
+            <h2 className="font-bold">All Products</h2>
+            <div className="product-grid">
+            {products?.length && products.map(product => (
+                <ProductBox product={product} key={product._id}/>
+            ))}
             </div>
-            </div>
-        </>
+        </Layout>
         
     )
 }
