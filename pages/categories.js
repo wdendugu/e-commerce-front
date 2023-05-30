@@ -3,10 +3,10 @@ import { mongooseConnect } from "@/lib/mongoose";
 import { Category } from "@/models/Category";
 import { Product } from "@/models/Product";
 import ProductBox from "@/components/ProductBox";
+import Link from "next/link";
 
-export default function CategoriesPage ({mainCategories,categoriesProducts}) {
-console.log(categoriesProducts)
-console.log(mainCategories)
+export default function CategoriesPage ({mainCategories,categoriesProducts,allCategories}) {
+
     return (
         <>
         <Header />
@@ -14,11 +14,15 @@ console.log(mainCategories)
             <h2 className="font-bold">All Categories</h2>
             {mainCategories.map(cat => (
                 <div key={cat._id}>
-                    <h2>{cat.name}</h2>
-                    <div>
-                        {categoriesProducts[cat._id].map(p => (
+                    <div className="flex items-center gap-11">
+                        <h2>{cat.name}</h2>
+                        <Link href={"/category/"+cat._id}>Show all</Link>
+                    </div>
+                    <div className="grid grid-cols-4 gap-5">
+                        {categoriesProducts[cat._id]?.map(p => (
                             <ProductBox product={p} key={p._id}/>
                         ))}
+                        <Link className="bg-gray-200 p-5 flex justify-center items-center rounded-lg mt-3 h-[70%]" href={"/category/"+cat._id}>{"Show All >"}</Link>
                     </div>
                 </div>
             ))}
@@ -38,7 +42,7 @@ export async function getServerSideProps(){
         const childCatIds = categories.filter (c => c?.parent?.toString() === mainCatId).map(c => c._id)
         const categoriesIds = [mainCatId, ...childCatIds]
         const products = await Product.find({category: categoriesIds}, null, {limit:3,sort:{"_id":-1}})
-        categoriesProducts[categoriesIds] = products
+        categoriesProducts[mainCat._id] = products
     }
     return {
         props:{
