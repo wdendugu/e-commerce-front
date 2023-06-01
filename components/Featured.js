@@ -13,6 +13,7 @@ export default function Featured({product}) {
     return (
       <div className="bg-[#222]">
         <div className="centered-box grid grid-12-8">
+          
           <div className="flex-col-center mx-auto px-5 py-7 text-white">
             <h1 >{product.title}</h1>
             <p className="text-sm text-gray-400 mb-4">
@@ -23,6 +24,7 @@ export default function Featured({product}) {
               <ButtonAddToCart btnText=" Add to Cart" btnType="btn-cart" onClick={addFeaturedtoCart}/>
             </div>
           </div>
+
           <div className="max-x-full flex-col-center">
             <img
               src={product.images[0]}
@@ -30,6 +32,7 @@ export default function Featured({product}) {
               className="py-8 max-h-[500px] object-contain"
             />
           </div>
+
         </div>
       </div>
 

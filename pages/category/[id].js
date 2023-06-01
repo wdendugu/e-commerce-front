@@ -4,11 +4,19 @@ import { Product } from "@/models/Product";
 import { useEffect, useState } from "react";
 import Layout from "@/components/Layout";
 import axios from "axios";
+import Spinner from "@/components/Spinner";
+
 
 export default function CategoryPage ({category,subCategories,products:originalProducts}) {
-    const [products, setProducts] = useState(originalProducts)
-    const [filtersValues, setFilterValues] = useState(category.properties.map(p => ({name:p.name,value:"all"})))
 
+    const defaultSorting = "price_desc"
+    const defaultFilterValues = category.properties.map(p => ({name:p.name,value:"all"}))
+
+    const [products, setProducts] = useState(originalProducts)
+    const [filtersValues, setFilterValues] = useState(defaultFilterValues)
+    const [sort, setSort] = useState(defaultSorting)
+    const [loadingProducts, setLoadingProducts] = useState(false)
+    const [filtersChanged, setFiltersChanged] = useState(false)
 
     function handleFilterChange (filterName, filterValue) {
         setFilterValues(prev => {
@@ -17,24 +25,40 @@ export default function CategoryPage ({category,subCategories,products:originalP
                 value: p.name === filterName ? filterValue : p.value
             }))
         })
+        setFiltersChanged(true)
     }
 
+    // Checks if the filters have changed, if not, it returns page with no Spinner //
+    useEffect(() => {
+        if (!filtersChanged) {
+            return
+        }
+    })
+
+    // Builds the url for querying the api to get the filtered products //
     useEffect (() => {
+        setLoadingProducts(true)
         const catIds = [category._id, ...(subCategories?.map (c => c._id) || [] )]
         const params = new URLSearchParams
-        
+
         params.set("categories", catIds.join(","))
+        params.set("sort", sort)
         
         filtersValues.forEach(f => {
             if (f.value !== "all") {
                 params.set(f.name,f.value)
             }
         })
+
         const url = "/api/products?" + params.toString()
+
         axios.get(url).then (res => {
             setProducts(res.data)
+            setLoadingProducts(false)                
         })
-    },[filtersValues])
+    },[filtersValues, sort, filtersChanged])
+
+
     return (
         <Layout>
             <div className="flex justify-between place-items-center">
@@ -53,13 +77,44 @@ export default function CategoryPage ({category,subCategories,products:originalP
                                 </select>
                         </div>
                     ))}
+                    <div className="inline-flex">
+                        Sort:
+                        <select
+                            value={sort}
+                            onChange={ev => {
+                                setSort(ev.target.value)
+                                setFiltersChanged(true)
+                            }}
+                            className="mx-2 rounded-lg capitalize" 
+                        >
+                            <option value="price_asc" key="price_asc">Price, lowest first</option>
+                            <option value="price_desc" key="price_desc">Price, highest first</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-            <div className="category-grid">
-                {products.map(p =>
-                    <ProductBox product={p} key={p._id} />
-                )}
-            </div>
+
+            {loadingProducts && (
+                <Spinner/>
+            )}
+
+            {!loadingProducts && (
+                <div>
+                    {products.length > 0 && (
+                        <div className="category-grid">
+                            {products.map(p =>
+                                <ProductBox product={p} key={p._id} />
+                            )}
+                        </div>
+                    )}
+                    {products.length === 0 && (
+                        <div>
+                            Sorry, no Products found
+                        </div>
+                    )}
+                </div>
+            )}
+
         </Layout>
     )
 }

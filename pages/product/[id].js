@@ -17,13 +17,13 @@ export default function ProductPage ({product}) {
 
     return  (
         <Layout>
-            <div className="grid-12-8 product-grid">
-                <div className="flex items-center justify-center bg-white rounded-lg">
+            <div className="grid-12-8 mt-4 ">
+                <div className="flex items-center justify-center bg-white rounded-lg w-[90%]">
                     <ImageBar images={product.images}/>    
                 </div>
-                <div>
-                    <h1>{product.title}</h1>
-                    <p>{product.description}</p>
+                <div >
+                        <h1 className="font-bold">{product.title}</h1>
+                        <p>{product.description}</p>
                     <div className="flex justify-between">
                         <h2>${product.price}</h2>
                         <CartButton btnType="btn-productpage" onClick={addNewtoCart} btnText={" Add to Cart"}/>
