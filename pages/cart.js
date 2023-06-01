@@ -39,7 +39,7 @@ export default function CartPage () {
     }
 
     return (
-        <Layout addclass={"product-grid grid-12-8 "}>
+        <Layout addclass={"grid-12-8 "}>
             <div className="bg-white rounded-xl p-7">
                 <h2 className="font-bold">Cart</h2>
                 {!cartProducts?.length && (<div>Your cart is empty</div>)}
