@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { useContext } from "react";
 import { CartContext } from "./CartContext";
-
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function Header () {
     const {cartProducts} = useContext(CartContext)
@@ -15,6 +16,7 @@ export default function Header () {
                     <Link href={'/categories'}>Categories</Link>
                     <Link href={'/account'}>Account</Link>
                     <Link href={'/cart'}>Cart ({cartProducts.length})</Link>
+                    <Link href={'/search'}><FontAwesomeIcon icon={faMagnifyingGlass} className="text-gray-400"/></Link>
                 </nav>
             </div>
         </header>
