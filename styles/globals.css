@@ -59,7 +59,7 @@ nav a {
 .grid-12-8 {
   @apply
   grid 
-  grid-cols-[1.2fr,.8fr] 
+  grid-cols-[1.2fr,.8fr]
 }
 
 .grid-8-12 {
