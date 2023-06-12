@@ -7,7 +7,7 @@ import HeartFilledIcon from "@/icon/HeartFilledIcon";
 import axios from "axios";
 
 
-export default function ProductBox ({product,wished=false}) {
+export default function ProductBox ({product,wished=false,onRemovefromWishList=()=>{}}) {
     
     const [isWished, setIsWished] = useState(wished)
     const url = '/product/'+product._id
@@ -15,6 +15,9 @@ export default function ProductBox ({product,wished=false}) {
 
     function addToWishList () {
         const nextValue = !isWished
+        if (nextValue === false && onRemovefromWishList) {
+            onRemovefromWishList(product._id)
+        }
         axios.post("/api/wishList", {
             product: product._id
         }).then (()=> {})
@@ -23,7 +26,6 @@ export default function ProductBox ({product,wished=false}) {
     function addNewtoCart () {
       addProduct(product._id)
     }
-
     return (
         <div>
             <div className="bg-white p-5 flex justify-center relative items-center rounded-lg mt-3">

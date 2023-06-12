@@ -7,6 +7,7 @@ import { RevealWrapper } from "next-reveal";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Spinner from "@/components/Spinner";
+import ProductBox from "@/components/ProductBox";
 
 export default function AccountPage () {
     const [name, setName] = useState("")
@@ -15,7 +16,8 @@ export default function AccountPage () {
     const [city, setCity] = useState("")
     const [postalCode, setPostalCode] = useState("")
     const [country, setCountry] = useState("")
-    const [loaded, setLoaded] = useState(false)
+    const [loaded, setLoaded] = useState(true)
+    const [wishedProducts, setWishedProducts] = useState([])
     
     const {data:session} = useSession()
     const router = useRouter()
@@ -37,6 +39,10 @@ export default function AccountPage () {
         axios.put("/api/address", data)
     }
     useEffect(()=>{
+        if (!session) {
+            return
+        }   
+            setLoaded(false)
             axios.get("/api/address").then(response => {
                 setName(response.data.name)
                 setEmail(response.data.email)
@@ -46,14 +52,39 @@ export default function AccountPage () {
                 setCountry(response.data.country)
                 setLoaded(true)
             })
-},[])
+            axios.get('/api/wishList').then(response => {
+                setWishedProducts(response.data)
+            })
+},[session])
+    function productRemoveFromWishlist(idToRemove) {
+        setWishedProducts(products => {
+            console.log(products)
+            return [...products.filter(p => p.product._id.toString() !== idToRemove)]
+        })
+        
+    }
+
     return (
         <Layout>
             <div className="grid-12-8 gap-10 my-8">
-
                 <RevealWrapper delay={0}>
                     <div className="bg-white rounded-xl p-7">
                         <h2 className="font-bold">Wishlist</h2>
+                            <div className="lg:grid lg:grid-cols-2 gap-5">
+                                {wishedProducts.length > 0 && wishedProducts.map(item => (
+                                <ProductBox product={item.product} key={item.product._id} wished={true} onRemovefromWishList={productRemoveFromWishlist}/>
+                                ))}
+                            </div>
+                            {wishedProducts.length === 0 && (
+                                <>
+                                    {session && (
+                                        <p>Your wishlist is empty</p>
+                                    )}
+                                    {!session && (
+                                        <p>Login to add products to your wishlist</p>
+                                    )}
+                                </>
+                            )}
                     </div>
                 </RevealWrapper>
 
@@ -61,7 +92,7 @@ export default function AccountPage () {
                     <Spinner/>
                 )}
 
-                {loaded && (
+                {loaded && session && (
                     <RevealWrapper delay={100}>
                         <div className="bg-white rounded-xl p-7">
                             <h2 className="font-bold">Account Details</h2>
@@ -138,7 +169,7 @@ export default function AccountPage () {
                         onClick={() => login()}
                     >
                         <FontAwesomeIcon icon={faRightToBracket} />
-                        Login
+                        Login with Google
                 </button>
             )}
         </Layout>

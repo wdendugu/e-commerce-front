@@ -3,6 +3,7 @@ import { CartContext } from "@/components/CartContext"
 import axios from "axios"
 import ProductItemCart from "@/components/ProductItemCart"
 import Layout from "@/components/Layout"
+import { useSession } from "next-auth/react"
 
 export default function CartPage () {
 
@@ -10,10 +11,12 @@ export default function CartPage () {
     const [products, setProducts] = useState([])
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
-    const [streetAdress, setstreetAdress] = useState("")
+    const [streetAdress, setStreetAdress] = useState("")
     const [city, setCity] = useState("")
     const [postalCode, setPostalCode] = useState("")
     const [country, setCountry] = useState("")
+
+    const {data:session} = useSession()
 
     useEffect (() =>{
         if (cartProducts.length > 0) {
@@ -21,6 +24,20 @@ export default function CartPage () {
             .then (response => {setProducts(response.data)})
         }
     },[cartProducts])
+
+    useEffect(()=>{
+        if (!session) {
+            return
+        }   
+            axios.get("/api/address").then(response => {
+                setName(response.data.name)
+                setEmail(response.data.email)
+                setStreetAdress(response.data.streetAdress)
+                setCity(response.data.city)
+                setPostalCode(response.data.postalCode)
+                setCountry(response.data.country)
+            })
+},[session])
 
     let total = 0
 
@@ -87,7 +104,7 @@ export default function CartPage () {
                         placeholder="Street Address" 
                         className="input-order" 
                         value={streetAdress} 
-                        onChange={(ev) => setstreetAdress(ev.target.value)}
+                        onChange={(ev) => setStreetAdress(ev.target.value)}
                         name="streetAdress"
                     ></input>
                     <div className="grid-12-8 gap-2">

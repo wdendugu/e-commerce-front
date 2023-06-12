@@ -2,7 +2,6 @@ import ProductBox from "./ProductBox";
 
 export default function NewProducts ({products,wishedProducts=[]}) {
 
-    console.log(wishedProducts)
 
     return (
         <div className="centered-box">
