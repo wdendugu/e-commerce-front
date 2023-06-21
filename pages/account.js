@@ -8,6 +8,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Spinner from "@/components/Spinner";
 import ProductBox from "@/components/ProductBox";
+import Tabs from "@/components/Tabs";
+import SingleOrder from "@/components/SingleOrder";
 
 export default function AccountPage () {
     const [name, setName] = useState("")
@@ -18,6 +20,8 @@ export default function AccountPage () {
     const [country, setCountry] = useState("")
     const [loaded, setLoaded] = useState(true)
     const [wishedProducts, setWishedProducts] = useState([])
+    const [activeTab, setActiveTab] = useState("Wishlist")
+    const [orders, setOrders] = useState([])
     
     const {data:session} = useSession()
     const router = useRouter()
@@ -55,10 +59,12 @@ export default function AccountPage () {
             axios.get('/api/wishList').then(response => {
                 setWishedProducts(response.data)
             })
+            axios.get('api/orders').then(response => {
+                setOrders(response.data)
+            })
 },[session])
     function productRemoveFromWishlist(idToRemove) {
         setWishedProducts(products => {
-            console.log(products)
             return [...products.filter(p => p.product._id.toString() !== idToRemove)]
         })
         
@@ -69,22 +75,44 @@ export default function AccountPage () {
             <div className="grid-12-8 gap-10 my-8">
                 <RevealWrapper delay={0}>
                     <div className="bg-white rounded-xl p-7">
-                        <h2 className="font-bold">Wishlist</h2>
-                            <div className="lg:grid lg:grid-cols-2 gap-5">
-                                {wishedProducts.length > 0 && wishedProducts.map(item => (
-                                <ProductBox product={item.product} key={item.product._id} wished={true} onRemovefromWishList={productRemoveFromWishlist}/>
-                                ))}
-                            </div>
-                            {wishedProducts.length === 0 && (
-                                <>
-                                    {session && (
-                                        <p>Your wishlist is empty</p>
-                                    )}
-                                    {!session && (
-                                        <p>Login to add products to your wishlist</p>
-                                    )}
-                                </>
-                            )}
+                        <Tabs 
+                            tabs={['Wishlist','Orders']} 
+                            active={activeTab} 
+                            onChange={setActiveTab}
+                            />
+                        {activeTab === "Wishlist" && (
+                            <>
+                                <div className="lg:grid lg:grid-cols-2 gap-5">
+                                    {wishedProducts.length > 0 && wishedProducts.map(item => (
+                                    <ProductBox product={item.product} key={item.product._id} wished={true} onRemovefromWishList={productRemoveFromWishlist}/>
+                                    ))}
+                                </div>
+                                {wishedProducts.length === 0 && (
+                                    <>
+                                        {session && (
+                                            <p>Your wishlist is empty</p>
+                                        )}
+                                        {!session && (
+                                            <p>Login to add products to your wishlist</p>
+                                        )}
+                                    </>
+                                )}
+                            </>
+                            )
+                        }
+                        {activeTab === "Orders" && (
+                            <>
+                                {session ? (
+                                    orders.length > 0 ? (
+                                    orders.map((order) => <SingleOrder order={order} />)
+                                    ) : (
+                                    <p>No orders</p>
+                                    )
+                                ) : (
+                                    <p>Login to see your orders</p>
+                                )}
+                            </>
+                        )}
                     </div>
                 </RevealWrapper>
 

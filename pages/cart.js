@@ -70,7 +70,7 @@ export default function CartPage () {
                             </tr>
                         </thead>
                         <tbody>
-                            {cartProducts?.length > 0 && products.map (product => <ProductItemCart product={product} />)}
+                            {cartProducts?.length > 0 && products.map (product => <ProductItemCart product={product} key={product._id}/>)}
                             <tr className="border-t-2">
                                 <td>Total</td>
                                 <td></td>

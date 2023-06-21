@@ -1,6 +1,8 @@
 import { mongooseConnect } from "@/lib/mongoose"
 import { Order } from "@/models/Order"
 import { Product } from "@/models/Product"
+import { getServerSession } from "next-auth"
+import { authOptions } from "./auth/[...nextauth]"
 
 
 export default async function handler (req,res) {
@@ -31,9 +33,21 @@ export default async function handler (req,res) {
             })
         }
     }
+
+    const session = await getServerSession(req,res,authOptions)
+
     const orderDoc = await Order.create({
-        line_items,name,email,streetAdress,city,postalCode,country,paid:false
+        line_items,
+        name,
+        email,
+        streetAdress,
+        city,
+        postalCode,
+        country,
+        paid:false,
+        userEmail: session?.user?.email,
     })
+
 
     res.json({
         url:'/success'

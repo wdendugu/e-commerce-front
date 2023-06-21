@@ -7,7 +7,7 @@ import HeartFilledIcon from "@/icon/HeartFilledIcon";
 import axios from "axios";
 
 
-export default function ProductBox ({product,wished=false,onRemovefromWishList=()=>{}}) {
+export default function ProductBox ({product,wished="false",onRemovefromWishList=()=>{}}) {
     
     const [isWished, setIsWished] = useState(wished)
     const url = '/product/'+product._id
