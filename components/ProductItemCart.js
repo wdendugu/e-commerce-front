@@ -15,10 +15,10 @@ export default function ProductItemCart ({product}) {
     return (
         <tr className="border-t-2 ">
             <td className="py-2">
+                {product.title}
                 <div className="cart-img-box">
                     <img src={product.images[0]} alt="" className="max-w-[80px] max-h-[80px]"/>
                 </div>
-                {product.title}
             </td>
             <td>
                 <button onClick={() => lessOfThisProduct(product._id)}>-</button>
@@ -27,7 +27,7 @@ export default function ProductItemCart ({product}) {
                 </label>
                 <button onClick={() => moreOfThisProduct(product._id)}>+</button>
             </td>
-            <td>
+            <td className="text-right">
                 ${cartProducts.filter(id => id === product._id ).length * product.price}
             </td>
         </tr>

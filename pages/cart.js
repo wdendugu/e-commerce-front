@@ -15,6 +15,7 @@ export default function CartPage () {
     const [city, setCity] = useState("")
     const [postalCode, setPostalCode] = useState("")
     const [country, setCountry] = useState("")
+    const [shippingFee, setShippingFee] = useState(null)
 
     const {data:session} = useSession()
 
@@ -24,6 +25,12 @@ export default function CartPage () {
             .then (response => {setProducts(response.data)})
         }
     },[cartProducts])
+
+    useEffect(()=> {
+        axios.get('/api/settings?name=shippingFee').then(res => {
+            setShippingFee(parseInt(res.data.value))
+        }
+    )},[])
 
     useEffect(()=>{
         if (!session) {
@@ -55,6 +62,7 @@ export default function CartPage () {
         }
     }
 
+
     return (
         <Layout addclass={"grid-12-8 gap-7 mt-4"}>
             <div className="bg-white rounded-xl p-7">
@@ -66,16 +74,23 @@ export default function CartPage () {
                             <tr>
                                 <th>Product</th>
                                 <th>Qty</th>
-                                <th>Price</th>
+                                <th className="text-right">Price</th>
                             </tr>
                         </thead>
                         <tbody>
                             {cartProducts?.length > 0 && products.map (product => <ProductItemCart product={product} key={product._id}/>)}
                             <tr className="border-t-2">
-                                <td>Total</td>
-                                <td></td>
-                                <td>${total}</td>
-                            </tr>  
+                                <td colSpan={2}>Products</td>
+                                <td className="text-right">${total}</td>
+                            </tr>
+                            <tr>
+                                <td colSpan={2}>Shipping Fee</td>
+                                <td className="text-right">${shippingFee}</td>
+                            </tr>
+                            <tr className="border-t-2">
+                                <td colSpan={2}>Total</td>
+                                <td className="text-right text-xl font-semibold">${shippingFee + total}</td>
+                            </tr>
                         </tbody>
                     </table>
                 )}
