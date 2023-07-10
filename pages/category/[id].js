@@ -5,9 +5,10 @@ import { useEffect, useState } from "react";
 import Layout from "@/components/Layout";
 import axios from "axios";
 import Spinner from "@/components/Spinner";
+import { WishedProduct } from "@/models/WishedProduct";
 
 
-export default function CategoryPage ({category,subCategories,products:originalProducts}) {
+export default function CategoryPage ({category,subCategories,products:originalProducts,wishedProducts=[]}) {
 
     const defaultSorting = "price_desc"
     const defaultFilterValues = category.properties.map(p => ({name:p.name,value:"all"}))
@@ -103,7 +104,7 @@ export default function CategoryPage ({category,subCategories,products:originalP
                     {products.length > 0 && (
                         <div className="category-grid">
                             {products.map(p =>
-                                <ProductBox product={p} key={p._id} />
+                                <ProductBox product={p} key={p._id} wished={wishedProducts.includes(p._id)} />
                             )}
                         </div>
                     )}
@@ -124,12 +125,18 @@ export async function getServerSideProps (context) {
     const subCategories = await Category.find({parent: category._id})
     const catIds = [category._id, ...subCategories.map (c => c._id)]
     const products = await Product.find({category: catIds})
+    const wishedProducts = session?.user ?
+        await WishedProduct.find({
+            userEmail:session?.user.email,
+            product: fetchedProductsId
+      }) : []
 
     return {
         props: {
             category: JSON.parse(JSON.stringify(category)),
             products: JSON.parse(JSON.stringify(products)),
-            subCategories: JSON.parse(JSON.stringify(subCategories))
+            subCategories: JSON.parse(JSON.stringify(subCategories)),
+            wishedProducts: wishedProducts.map(i => i.product.toString())
         }
     }
 }

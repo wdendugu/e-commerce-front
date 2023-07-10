@@ -5,6 +5,7 @@ import ImageBar from "@/components/ImageBar";
 import CartButton from "@/components/ButtonAddToCart";
 import { useContext } from "react"
 import { CartContext } from "@/components/CartContext";
+import ProductReviews from "@/components/ProductReviews";
 
 
 export default function ProductPage ({product}) {
@@ -30,6 +31,7 @@ export default function ProductPage ({product}) {
                     </div>
                 </div>
             </div>
+            <ProductReviews product={product} />
         </Layout>
     )
 }

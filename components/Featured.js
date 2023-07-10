@@ -20,7 +20,7 @@ export default function Featured({product}) {
               {product.description}
             </p>
             <div>
-              <Link href={'/products/'+product._id}><button className="btn btn-read">Read More</button></Link>
+              <Link href={'/product/'+product._id}><button className="btn btn-read">Read More</button></Link>
               <ButtonAddToCart btnText=" Add to Cart" btnType="btn-cart" onClick={addFeaturedtoCart}/>
             </div>
           </div>
