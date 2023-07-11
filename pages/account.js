@@ -10,11 +10,12 @@ import Spinner from "@/components/Spinner";
 import ProductBox from "@/components/ProductBox";
 import Tabs from "@/components/Tabs";
 import SingleOrder from "@/components/SingleOrder";
+import Swal from 'sweetalert2'
 
 export default function AccountPage () {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
-    const [streetAdress, setStreetAdress] = useState("")
+    const [streetAddress, setStreetAddress] = useState("")
     const [city, setCity] = useState("")
     const [postalCode, setPostalCode] = useState("")
     const [country, setCountry] = useState("")
@@ -39,8 +40,13 @@ export default function AccountPage () {
     }
     
     function saveAddress(){
-        const data = {name,email,city,streetAdress,postalCode,country}
+        const data = {name,email,city,streetAddress,postalCode,country}
         axios.put("/api/address", data)
+        Swal.fire({
+            title: `Info saved!`,
+            icon:'success',
+            confirmButtonColor:'#78c259'
+            })
     }
     useEffect(()=>{
         if (!session) {
@@ -50,7 +56,7 @@ export default function AccountPage () {
             axios.get("/api/address").then(response => {
                 setName(response.data.name)
                 setEmail(response.data.email)
-                setStreetAdress(response.data.streetAdress)
+                setStreetAddress(response.data.streetAddress)
                 setCity(response.data.city)
                 setPostalCode(response.data.postalCode)
                 setCountry(response.data.country)
@@ -63,6 +69,7 @@ export default function AccountPage () {
                 setOrders(response.data)
             })
 },[session])
+
     function productRemoveFromWishlist(idToRemove) {
         setWishedProducts(products => {
             return [...products.filter(p => p.product._id.toString() !== idToRemove)]
@@ -104,7 +111,7 @@ export default function AccountPage () {
                             <>
                                 {session ? (
                                     orders.length > 0 ? (
-                                    orders.map((order) => <SingleOrder order={order} />)
+                                    orders.map((order) => <SingleOrder order={order} key={order._id}/>)
                                     ) : (
                                     <p>No orders</p>
                                     )
@@ -144,9 +151,9 @@ export default function AccountPage () {
                                 type="text"
                                 placeholder="Street Address" 
                                 className="input-order" 
-                                value={streetAdress} 
-                                onChange={(ev) => setStreetAdress(ev.target.value)}
-                                name="streetAdress"
+                                value={streetAddress} 
+                                onChange={(ev) => setStreetAddress(ev.target.value)}
+                                name="streetAddress"
                             ></input>
                             <div className="grid-12-8 gap-2">
                                 <input 

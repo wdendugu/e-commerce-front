@@ -31,8 +31,8 @@ export default function ProductBox ({product,wished="false",onRemovefromWishList
             <div className="bg-white p-5 flex justify-center relative items-center rounded-lg mt-3">
                     <button className="w-5 absolute top-1 right-1 cursor-pointer" onClick={addToWishList} wished={isWished}>
                         {isWished ? 
-                        <HeartFilledIcon /> :
-                        <HeartOutlineIcon /> 
+                        <HeartFilledIcon className="w-5 h-5"/> :
+                        <HeartOutlineIcon className="w-5 h-5"/> 
                         }
                     </button>
                     <Link href={url}>
