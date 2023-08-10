@@ -1,19 +1,30 @@
 import { useContext, useState } from "react"
 import { CartContext } from "./CartContext"
+import { useSession } from "next-auth/react";
 import Link from "next/link"
 import ButtonAddToCart from "./ButtonAddToCart";
 import HeartOutlineIcon from "@/icon/HeartOutlineIcon";
 import HeartFilledIcon from "@/icon/HeartFilledIcon";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 
 export default function ProductBox ({product,wished="false",onRemovefromWishList=()=>{}}) {
-    
     const [isWished, setIsWished] = useState(wished)
     const url = '/product/'+product._id
     const {addProduct} = useContext(CartContext)
+    const {data:session} = useSession()
 
     function addToWishList () {
+        if (!session) {
+            Swal.fire({
+                title: `Please login to add product to wishlist`,
+                icon:'error',
+                confirmButtonColor:'#78c259',
+                footer: '<a href="/account">Login here</a>'
+                })
+            return
+        }   
         const nextValue = !isWished
         if (nextValue === false && onRemovefromWishList) {
             onRemovefromWishList(product._id)
