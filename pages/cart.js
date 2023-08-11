@@ -56,7 +56,7 @@ export default function CartPage () {
     async function goToPayment () {
         const response = await axios.post('/api/checkout', {
             name,email,streetAdress,city,postalCode,country,cartProducts
-        })
+        }).then (localStorage.clear())
         if (response.data.url) {
             window.location = response.data.url
         }

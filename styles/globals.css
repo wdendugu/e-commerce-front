@@ -17,7 +17,8 @@ body {
 h1 {
   @apply
   m-0
-  text-5xl
+  text-2xl
+  md:text-4xl
   font-normal
   py-5
 }
@@ -32,6 +33,25 @@ nav a {
   @apply
   text-gray-400
   
+}
+
+.nav-bar{
+  @apply
+  fixed 
+  top-0
+  bottom-0
+  left-0
+  right-0
+  gap-3
+  pt-10
+  pl-8
+  bg-[#222]
+  sm:flex-row 
+  sm:space-x-3 
+  sm:static 
+  sm:top-0 
+  sm:pt-0
+  sm:pl-0
 }
 
 /* Layout Classes */
@@ -58,14 +78,18 @@ nav a {
 
 .grid-12-8 {
   @apply
-  grid 
-  grid-cols-[1.2fr,.8fr]
+  flex 
+  flex-col
+  sm:grid
+  sm:grid-cols-[1.2fr,.8fr]
 }
 
 .grid-8-12 {
   @apply
-  grid 
-  grid-cols-[.8fr,1.2fr] 
+  flex 
+  flex-col
+  sm:grid
+  sm:grid-cols-[.8fr,1.2fr] 
 }
 
 .cart-img-box {
@@ -85,7 +109,8 @@ nav a {
   @apply
   grid
   sm:grid-cols-2
-  md:grid-cols-4
+  md:grid-cols-3
+  lg:grid-cols-4
   xl:grid-cols-5
   gap-9
 }
@@ -102,7 +127,7 @@ nav a {
 
 .btn {
   @apply
-  text-base
+  text-sm
   border-[1px]
   py-1
   mr-2

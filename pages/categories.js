@@ -17,7 +17,6 @@ export default function CategoriesPage ({mainCategories,categoriesProducts,allCa
                 <div key={cat._id}>
                     <div className="flex items-center gap-11">
                         <h2>{cat.name}</h2>
-                        <Link href={"/category/"+cat._id}>Show all</Link>
                     </div>
                     <div className="category-grid">
                         {categoriesProducts[cat._id]?.map(p => (

@@ -6,7 +6,8 @@ import Layout from "@/components/Layout";
 import axios from "axios";
 import Spinner from "@/components/Spinner";
 import { WishedProduct } from "@/models/WishedProduct";
-
+import { getServerSession } from "next-auth";
+import { authOptions } from "next-auth";
 
 export default function CategoryPage ({category,subCategories,products:originalProducts,wishedProducts=[]}) {
 
@@ -120,8 +121,9 @@ export default function CategoryPage ({category,subCategories,products:originalP
     )
 }
 
-export async function getServerSideProps (context) {
-    const category = await Category.findById(context.query.id)
+export async function getServerSideProps (ctx) {
+    const session = await getServerSession(ctx.req, ctx.res, authOptions)
+    const category = await Category.findById(ctx.query.id)
     const subCategories = await Category.find({parent: category._id})
     const catIds = [category._id, ...subCategories.map (c => c._id)]
     const products = await Product.find({category: catIds})
