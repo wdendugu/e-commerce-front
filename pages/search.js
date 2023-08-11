@@ -42,7 +42,7 @@ export default function SearchPage () {
                 className="input-order my-8 text-xl sticky top-[50px]">
             </input>
             {!isLoading && phrase !== "" && products?.length === 0 && (
-                <h2>No products found for the search "{phrase}"</h2>
+                <h2>No products found for the search `&ldquo;`{phrase}`&ldquo;`</h2>
             )}
             {isLoading && (
                 <Spinner/>

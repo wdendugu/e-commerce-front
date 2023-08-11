@@ -39,7 +39,7 @@ export default function CartPage () {
             axios.get("/api/address").then(response => {
                 setName(response.data.name)
                 setEmail(response.data.email)
-                setStreetAdress(response.data.streetAdress)
+                setStreetAdress(response.data.streetAddress)
                 setCity(response.data.city)
                 setPostalCode(response.data.postalCode)
                 setCountry(response.data.country)
