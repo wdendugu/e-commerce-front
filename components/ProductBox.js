@@ -40,7 +40,7 @@ export default function ProductBox ({product,wished="false",onRemovefromWishList
     return (
         <div>
             <div className="bg-white p-5 flex justify-center relative items-center rounded-lg mt-3">
-                    <button className="w-5 absolute top-1 right-1 cursor-pointer" onClick={addToWishList} wished={isWished}>
+                    <button className="w-5 absolute top-1 right-1 cursor-pointer" onClick={addToWishList} wished={isWished.toString()}>
                         {isWished ? 
                         <HeartFilledIcon className="w-5 h-5"/> :
                         <HeartOutlineIcon className="w-5 h-5"/> 
@@ -53,7 +53,14 @@ export default function ProductBox ({product,wished="false",onRemovefromWishList
             <div className="mt-2">
                 <Link href={url}  className="text-base m-0">{product.title}</Link>
                 <div className="flex items-center justify-between">
-                    <p className="font-bold text-[1.3rem] ">${product.price}</p>
+                    <p className="font-bold text-[1.3rem] ">
+                    {   
+                        new Intl.NumberFormat("es-AR", {
+                        style: "currency",
+                        currency: "ARS"
+                        }).format(product.price)
+                    }
+                    </p>
                     <ButtonAddToCart btnType="btn-item" onClick={addNewtoCart} />
                 </div>
             </div>
