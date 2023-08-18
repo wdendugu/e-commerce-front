@@ -54,6 +54,12 @@ nav a {
   sm:pl-0
 }
 
+.price-tag {
+  @apply
+  text-3xl
+  sm:text-4xl
+}
+
 /* Layout Classes */
 
 .centered-box {
@@ -68,12 +74,6 @@ nav a {
   flex 
   flex-col 
   justify-center
-}
-
-.product-grid {
-  @apply
-  gap-10 
-  mt-9
 }
 
 .grid-12-8 {
@@ -113,6 +113,7 @@ nav a {
   lg:grid-cols-4
   xl:grid-cols-5
   gap-9
+  mt-9
 }
 
 .category-grid {

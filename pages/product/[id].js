@@ -18,15 +18,21 @@ export default function ProductPage ({product}) {
 
     return  (
         <Layout>
-            <div className="grid-12-8 mt-4 ">
-                <div className="flex items-center justify-center bg-white rounded-lg w-[90%]">
+            <div className="grid-12-8 mt-4">
+                <div className="flex items-center justify-center bg-white rounded-lg gap-5 w-[98.3%]">
                     <ImageBar images={product.images}/>    
                 </div>
-                <div >
+                <div>
                         <h1 className="font-bold">{product.title}</h1>
                         <p>{product.description}</p>
                     <div className="flex justify-between">
-                        <h2>${product.price}</h2>
+                        <h2 className="price-tag">{   
+                            new Intl.NumberFormat("es-AR", {
+                            style: "currency",
+                            currency: "ARS"
+                            }).format(product.price)
+                            }   
+                        </h2>
                         <CartButton btnType="btn-productpage" onClick={addNewtoCart} btnText={" Add to Cart"}/>
                     </div>
                 </div>

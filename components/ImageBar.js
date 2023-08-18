@@ -6,7 +6,7 @@ export default function ImageBar({images}) {
 
     return (
         <div>
-            <div className="w-[400px] h-[400px] flex content-center justify-center p-2">
+            <div className="w-[300px] h-[300px] sm:w-[400px] sm:h-[400px] flex content-center justify-center p-2">
                 <img className="object-contain p-2" src={activeImage} alt="product image" />
             </div>
             <div className="flex gap-2 flex-grow-0 p-4">

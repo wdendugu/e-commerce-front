@@ -31,8 +31,8 @@ export default function ProductReviews ({product}) {
     return (
         <div className="pb-10">
             <h2 className="text-xl font-bold mb-1">Reviews</h2>
-            <div className="grid-12-8">
-                <div className="p-4 bg-white rounded-lg w-[90%] max-h-[270px]">
+            <div className="grid-12-8 gap-4">
+                <div className="p-4 bg-white rounded-lg max-h-[270px]">
                     <h3 className="text-base font-bold mt-1 mb-4">Add a Review</h3>
                     <StartsRating onChange={setStars}/>
                     <input 
