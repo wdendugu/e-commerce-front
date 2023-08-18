@@ -23,9 +23,9 @@ export default function ProductPage ({product}) {
                     <ImageBar images={product.images}/>    
                 </div>
                 <div>
-                        <h1 className="font-bold">{product.title}</h1>
-                        <p>{product.description}</p>
-                    <div className="flex justify-between">
+                    <h1 className="font-bold">{product.title}</h1>
+                    <p>{product.description}</p>
+                    <div className="flex sm:justify-between lg:flex-row flex-col">
                         <h2 className="price-tag">{   
                             new Intl.NumberFormat("es-AR", {
                             style: "currency",

@@ -37,14 +37,14 @@ export default function ProductReviews ({product}) {
                     <StartsRating onChange={setStars}/>
                     <input 
                         placeholder="Title" 
-                        className="w-full border mt-3 rounded-md"
+                        className="input-review"
                         value={title}
                         onChange={ev=> setTitle(ev.target.value)}
                     >
                     </input>
                     <textarea 
                         placeholder="Was it good?" 
-                        className="w-full border mt-3 rounded-md"
+                        className="input-review"
                         value={description}
                         onChange={ev=> setDescription(ev.target.value)}
                     >
@@ -52,7 +52,7 @@ export default function ProductReviews ({product}) {
                     </textarea>
                     <div className="flex justify-end">
                         <button 
-                            className="btn btn-productpage"
+                            className="btn btn-review "
                             onClick={submitReview}
                         >
                             Submit your review
