@@ -20,7 +20,7 @@ export default function Header ({show}) {
                     <Image 
                         src="/logo.png"
                         width={180}
-                        height={80}
+                        height={180}
                         alt="Picture of the author"
                         className="ml-5"
                     >

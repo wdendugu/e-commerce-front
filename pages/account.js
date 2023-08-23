@@ -91,7 +91,7 @@ export default function AccountPage () {
                             <>
                                 <div className="lg:grid lg:grid-cols-2 gap-5">
                                     {wishedProducts.length > 0 && wishedProducts.map(item => (
-                                    <div className="pb-5 sm:mb-0 border-b-3 border-gray-300 ">
+                                    <div className="pb-5 sm:mb-0 border-b-3 border-gray-300 " key={item.product._id}>
                                         <ProductBox product={item.product} key={item.product._id} wished={true} onRemovefromWishList={productRemoveFromWishlist}/>
                                     </div>
                                     ))}
