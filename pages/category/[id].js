@@ -63,7 +63,7 @@ export default function CategoryPage ({category,subCategories,products:originalP
 
     return (
         <Layout>
-            <div className="flex justify-between place-items-center">
+            <div className="sm:flex justify-between place-items-center">
                 <h2 className="font-bold">{category.name}</h2>
                 <div>
                     {category.properties.map (prop => (
